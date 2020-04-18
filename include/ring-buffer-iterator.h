@@ -35,10 +35,10 @@ public:
     }
 
     CONSTEXPR ring_buffer_iterator operator+(difference_type n) const NOEXCEPT {
-      return {container_ptr, front, index + n};
+      return {*container_ptr, front, index + n};
     }
     CONSTEXPR ring_buffer_iterator operator-(difference_type n) const NOEXCEPT {
-      return {container_ptr, front, index - n};
+      return {*container_ptr, front, index - n};
     }
 
     CONSTEXPR reference operator*() COND_NOEXCEPT(noexcept(container_ptr->begin()) &&noexcept(container_ptr->size())) {
