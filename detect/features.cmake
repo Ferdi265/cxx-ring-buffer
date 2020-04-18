@@ -4,6 +4,10 @@ try_compile(cxx-least-11 ${CMAKE_BINARY_DIR}/detect ${CMAKE_SOURCE_DIR}/detect/c
     CXX_STANDARD_REQUIRED ${CMAKE_CXX_STANDARD_REQUIRED}
     CXX_EXTENSIONS ${CMAKE_CXX_EXTENSIONS}
 )
+if(NOT cxx-least-11)
+    message(FATAL_ERROR "This library requires at least C++11")
+endif()
+
 if(cxx-least-11)
     set(RING_BUFFER_NOEXCEPT ON)
     message(STATUS "Enabling RING_BUFFER_NOEXCEPT (C++11 and up)")
