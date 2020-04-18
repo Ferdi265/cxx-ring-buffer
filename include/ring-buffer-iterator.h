@@ -2,6 +2,7 @@
 #define _RING_BUFFER_ITERATOR_H
 
 #include <iterator>
+#include <utility>
 #include <ring-buffer-config.h>
 
 template <typename Container>
@@ -20,79 +21,81 @@ private:
 public:
     ring_buffer_iterator() = default;
     ~ring_buffer_iterator() = default;
-    ring_buffer_iterator(Container& container, size_type front = 0, size_type index = 0) : container(&container), front(front), index(index) {}
+    CONSTEXPR ring_buffer_iterator(Container& container, size_type front = 0, size_type index = 0)
+        NOEXCEPT(noexcept(container(&container)))
+        : container(&container), front(front), index(index) {}
     ring_buffer_iterator(const ring_buffer_iterator&) = default;
     ring_buffer_iterator(ring_buffer_iterator&&) = default;
     ring_buffer_iterator& operator=(const ring_buffer_iterator&) = default;
     ring_buffer_iterator& operator=(ring_buffer_iterator&&) = default;
 
-    ring_buffer_iterator& operator+=(difference_type n) {
+    CONSTEXPR ring_buffer_iterator& operator+=(difference_type n) NOEXCEPT {
         index += n;
     }
-    ring_buffer_iterator& operator-=(difference_type n) {
+    CONSTEXPR ring_buffer_iterator& operator-=(difference_type n) NOEXCEPT {
         index -= n;
     }
 
-    ring_buffer_iterator operator+(difference_type n) const {
+    CONSTEXPR ring_buffer_iterator operator+(difference_type n) const NOEXCEPT {
         return {container, front, index + n};
     }
-    ring_buffer_iterator operator-(difference_type n) const {
+    CONSTEXPR ring_buffer_iterator operator-(difference_type n) const NOEXCEPT {
         return {container, front, index - n};
     }
 
-    reference operator*() {
+    CONSTEXPR reference operator*() COND_NOEXCEPT(noexcept(container->begin()) && noexcept(container->size())) {
         return *(container->begin() + (front + index) % container->size());
     }
-    pointer operator->() {
+    CONSTEXPR pointer operator->() COND_NOEXCEPT(noexcept(container->begin()) && noexcept(container->size())) {
         return &**this;
     }
-    reference operator[](difference_type n) {
+    CONSTEXPR reference operator[](difference_type n) COND_NOEXCEPT(noexcept(container->begin()) && noexcept(container->size())) {
         return *(*this + n);
     }
 
-    ring_buffer_iterator& operator++() {
+    CONSTEXPR ring_buffer_iterator& operator++() NOEXCEPT {
         index++;
         return *this;
     }
-    ring_buffer_iterator operator++(int) {
+    CONSTEXPR ring_buffer_iterator operator++(int) NOEXCEPT {
         ring_buffer_iterator old = *this;
         *this++;
         return old;
     }
-    ring_buffer_iterator& operator--() {
+    CONSTEXPR ring_buffer_iterator& operator--() NOEXCEPT {
         index--;
         return *this;
     }
-    ring_buffer_iterator operator--(int) {
+    CONSTEXPR ring_buffer_iterator operator--(int) NOEXCEPT {
         ring_buffer_iterator old = *this;
         *this--;
         return old;
     }
 
-    bool operator==(const ring_buffer_iterator& other) const {
+    CONSTEXPR bool operator==(const ring_buffer_iterator& other) const NOEXCEPT {
         return index == other.index;
     }
-    bool operator!=(const ring_buffer_iterator& other) const {
+    CONSTEXPR bool operator!=(const ring_buffer_iterator& other) const NOEXCEPT {
         return index != other.index;
     }
 
-    bool operator<(const ring_buffer_iterator& other) const {
+    CONSTEXPR bool operator<(const ring_buffer_iterator& other) const NOEXCEPT {
         return index < other.index;
     }
-    bool operator>(const ring_buffer_iterator& other) const {
+    CONSTEXPR bool operator>(const ring_buffer_iterator& other) const NOEXCEPT {
         return index > other.index;
     }
-    bool operator<=(const ring_buffer_iterator& other) const {
+    CONSTEXPR bool operator<=(const ring_buffer_iterator& other) const NOEXCEPT {
         return index <= other.index;
     }
-    bool operator>=(const ring_buffer_iterator& other) const {
+    CONSTEXPR bool operator>=(const ring_buffer_iterator& other) const NOEXCEPT {
         return index >= other.index;
     }
 
-    friend ring_buffer_iterator operator+( difference_type n, const ring_buffer_iterator& it) {
+    CONSTEXPR friend ring_buffer_iterator operator+( difference_type n, const ring_buffer_iterator& it) NOEXCEPT {
         return it + n;
     }
-    friend void swap(ring_buffer_iterator& a, ring_buffer_iterator& b) {
+    CONSTEXPR friend void swap(ring_buffer_iterator& a, ring_buffer_iterator& b) COND_NOEXCEPT(noexcept(std::swap(a.container, b.container))) {
         using std::swap;
         swap(a.container, b.container);
         swap(a.front, b.front);
@@ -110,85 +113,87 @@ private:
     using pointer = typename std::iterator_traits<ring_buffer_const_iterator>::pointer;
 
     const Container* container;
-    size_type front{};
-    size_type index{};
+    size_type front;
+    size_type index;
 
 public:
     ring_buffer_const_iterator() = default;
     ~ring_buffer_const_iterator() = default;
-    ring_buffer_const_iterator(const Container& container, size_type front = 0, size_type index = 0) : container(&container), front(front), index(index) {}
+    CONSTEXPR ring_buffer_const_iterator(const Container& container, size_type front = 0, size_type index = 0)
+        NOEXCEPT(noexcept(container(&container)))
+        : container(&container), front(front), index(index) {}
     ring_buffer_const_iterator(const ring_buffer_const_iterator&) = default;
     ring_buffer_const_iterator(ring_buffer_const_iterator&&) = default;
     ring_buffer_const_iterator& operator=(const ring_buffer_const_iterator&) = default;
     ring_buffer_const_iterator& operator=(ring_buffer_const_iterator&&) = default;
 
-    ring_buffer_const_iterator& operator+=(difference_type n) {
+    CONSTEXPR ring_buffer_const_iterator& operator+=(difference_type n) NOEXCEPT {
         index += n;
     }
-    ring_buffer_const_iterator& operator-=(difference_type n) {
+    CONSTEXPR ring_buffer_const_iterator& operator-=(difference_type n) NOEXCEPT {
         index -= n;
     }
 
-    ring_buffer_const_iterator operator+(difference_type n) const {
+    CONSTEXPR ring_buffer_const_iterator operator+(difference_type n) const NOEXCEPT {
         return {container, front, index + n};
     }
-    ring_buffer_const_iterator operator-(difference_type n) const {
+    CONSTEXPR ring_buffer_const_iterator operator-(difference_type n) const NOEXCEPT {
         return {container, front, index - n};
     }
 
-    reference operator*() const {
-        return *(container->begin() + (front + index) % container->size());
+    CONSTEXPR reference operator*() const COND_NOEXCEPT(noexcept(container->cbegin()) && noexcept(container->size())) {
+        return *(container->cbegin() + (front + index) % container->size());
     }
-    pointer operator->() const {
+    CONSTEXPR pointer operator->() const COND_NOEXCEPT(noexcept(container->cbegin()) && noexcept(container->size())) {
         return &**this;
     }
-    reference operator[](difference_type n) const {
+    CONSTEXPR reference operator[](difference_type n) COND_NOEXCEPT(noexcept(container->cbegin()) && noexcept(container->size())) {
         return *(*this + n);
     }
 
-    ring_buffer_const_iterator& operator++() {
+    CONSTEXPR ring_buffer_const_iterator& operator++() NOEXCEPT {
         index++;
         return *this;
     }
-    ring_buffer_const_iterator operator++(int) {
+    CONSTEXPR ring_buffer_const_iterator operator++(int) NOEXCEPT {
         ring_buffer_const_iterator old = *this;
         *this++;
         return old;
     }
-    ring_buffer_const_iterator& operator--() {
+    CONSTEXPR ring_buffer_const_iterator& operator--() NOEXCEPT {
         index--;
         return *this;
     }
-    ring_buffer_const_iterator operator--(int) {
+    CONSTEXPR ring_buffer_const_iterator operator--(int) NOEXCEPT {
         ring_buffer_const_iterator old = *this;
         *this--;
         return old;
     }
 
-    bool operator==(const ring_buffer_const_iterator& other) const {
+    CONSTEXPR bool operator==(const ring_buffer_const_iterator& other) const NOEXCEPT {
         return index == other.index;
     }
-    bool operator!=(const ring_buffer_const_iterator& other) const {
+    CONSTEXPR bool operator!=(const ring_buffer_const_iterator& other) const NOEXCEPT {
         return index != other.index;
     }
 
-    bool operator<(const ring_buffer_const_iterator& other) const {
+    CONSTEXPR bool operator<(const ring_buffer_const_iterator& other) const NOEXCEPT {
         return index < other.index;
     }
-    bool operator>(const ring_buffer_const_iterator& other) const {
+    CONSTEXPR bool operator>(const ring_buffer_const_iterator& other) const NOEXCEPT {
         return index > other.index;
     }
-    bool operator<=(const ring_buffer_const_iterator& other) const {
+    CONSTEXPR bool operator<=(const ring_buffer_const_iterator& other) const NOEXCEPT {
         return index <= other.index;
     }
-    bool operator>=(const ring_buffer_const_iterator& other) const {
+    CONSTEXPR bool operator>=(const ring_buffer_const_iterator& other) const NOEXCEPT {
         return index >= other.index;
     }
 
-    friend ring_buffer_const_iterator operator+( difference_type n, const ring_buffer_const_iterator& it) {
+    CONSTEXPR friend ring_buffer_const_iterator operator+( difference_type n, const ring_buffer_const_iterator& it) NOEXCEPT {
         return it + n;
     }
-    friend void swap(ring_buffer_const_iterator& a, ring_buffer_const_iterator& b) {
+    CONSTEXPR friend void swap(ring_buffer_const_iterator& a, ring_buffer_const_iterator& b) COND_NOEXCEPT(noexcept(std::swap(a.container, b.container))) {
         using std::swap;
         swap(a.container, b.container);
         swap(a.front, b.front);

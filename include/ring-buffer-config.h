@@ -2,9 +2,11 @@
 #define _RING_BUFFER_CONFIG_H
 
 #ifdef RING_BUFFER_NOEXCEPT
-#define NOEXCEPT(x) noexcept(x)
+#define NOEXCEPT noexcept
+#define COND_NOEXCEPT(x) noexcept(x)
 #else
-#define NOEXCEPT(x)
+#define NOEXCEPT
+#define COND_NOEXCEPT(x)
 #endif
 
 #ifdef RING_BUFFER_CONSTEXPR

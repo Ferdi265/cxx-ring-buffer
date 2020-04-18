@@ -1,6 +1,7 @@
 #ifndef _RING_BUFFER_H
 #define _RING_BUFFER_H
 
+#include <array>
 #include <ring-buffer-config.h>
 #include <ring-buffer-iterator.h>
 
@@ -17,41 +18,40 @@ private:
     size_type front_index{};
 
 public:
-    CONSTEXPR basic_ring_buffer() NOEXCEPT() = default;
-    CONSTEXPR_D ~basic_ring_buffer() NOEXCEPT() = default;
+    basic_ring_buffer() = default;
+    ~basic_ring_buffer() = default;
     basic_ring_buffer(const basic_ring_buffer& other) = default;
     basic_ring_buffer(basic_ring_buffer&& other) = default;
     basic_ring_buffer& operator=(const basic_ring_buffer& other) = default;
     basic_ring_buffer& operator=(basic_ring_buffer&& other) = default;
 
-    Container& buffer() {
+    CONSTEXPR Container& buffer() NOEXCEPT {
         return container;
     }
-    const Container& buffer() const {
+    CONSTEXPR const Container& buffer() const NOEXCEPT {
         return container;
     }
 
-    void push_back(const value_type& value) {
+    CONSTEXPR void push_back(const value_type& value) COND_NOEXCEPT(noexcept(container[front_index] = value)) {
         container[front_index] = value;
         front_index = (front_index + 1) % container.size();
     }
 
-    iterator begin() {
+    CONSTEXPR iterator begin() NOEXCEPT {
         return {container, front_index, 0};
     }
-    iterator end() {
+    CONSTEXPR iterator end() COND_NOEXCEPT(noexcept(container.size())) {
         return {container, front_index, container.size()};
     }
 
-    const_iterator cbegin() const {
+    CONSTEXPR const_iterator cbegin() const NOEXCEPT {
         return {container, front_index, 0};
     }
-    const_iterator cend() const {
+    CONSTEXPR const_iterator cend() const COND_NOEXCEPT(noexcept(container.size())) {
         return {container, front_index, container.size()};
     }
 };
 
-#include <array>
 template <typename T, size_t N>
 using ring_buffer = basic_ring_buffer<std::array<T, N>>;
 
