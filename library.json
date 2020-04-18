@@ -6,8 +6,9 @@
         "srcFilter":
         [
             "+<*>",
-            "-<detect>",
-            "-<detect/*>"
+            "-<.git>",
+            "-<detect/>",
+            "-<test/*>"
         ]
     }
 }
