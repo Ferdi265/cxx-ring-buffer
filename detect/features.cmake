@@ -1,11 +1,11 @@
-if(cxx_noexcept IN_LIST CMAKE_CXX_COMPILE_FEATURES)
+if(${CMAKE_CXX_STANDARD} GREATER_EQUAL 11)
     set(RING_BUFFER_NOEXCEPT ON)
-    message(STATUS "Detected support for conditional noexcept")
+    message(STATUS "Enabling RING_BUFFER_NOEXCEPT (C++11 and up)")
 endif()
 
-if(cxx_constexpr IN_LIST CMAKE_CXX_COMPILE_FEATURES)
+if(${CMAKE_CXX_STANDARD} GREATER_EQUAL 14)
     set(RING_BUFFER_CONSTEXPR ON)
-    message(STATUS "Detected support for constexpr")
+    message(STATUS "Enabling RING_BUFFER_CONSTEXPR (C++14 and up)")
 endif()
 
 try_compile(constexpr-destructors-compile ${CMAKE_BINARY_DIR}/detect ${CMAKE_SOURCE_DIR}/detect/constexpr_destructors.cpp
@@ -15,5 +15,5 @@ try_compile(constexpr-destructors-compile ${CMAKE_BINARY_DIR}/detect ${CMAKE_SOU
 )
 if(constexpr-destructors-compile)
     set(RING_BUFFER_CONSTEXPR_DESTRUCTORS ON)
-    message(STATUS "Detected support for constexpr destructors")
+    message(STATUS "Enabling RING_BUFFER_CONSTEXPR_DESTRUCTORS (C++20 and up)")
 endif()
