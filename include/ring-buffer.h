@@ -44,6 +44,13 @@ public:
         return {container, front_index, container.size()};
     }
 
+    CONSTEXPR const_iterator begin() const NOEXCEPT {
+        return {container, front_index, 0};
+    }
+    CONSTEXPR const_iterator end() const COND_NOEXCEPT(noexcept(container.size())) {
+        return {container, front_index, container.size()};
+    }
+
     CONSTEXPR const_iterator cbegin() const NOEXCEPT {
         return {container, front_index, 0};
     }
