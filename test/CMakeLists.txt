@@ -1,0 +1,33 @@
+set(test-targets "")
+
+file(GLOB test-sources *.cpp)
+foreach(test-source ${test-sources})
+    get_filename_component(test-name ${test-source} NAME_WE)
+    set(test-target test-${test-name})
+    list(APPEND test-targets ${test-target})
+
+    add_executable(${test-target} ${test-source})
+    target_link_libraries(${test-target} PRIVATE ring-buffer)
+endforeach()
+
+file(GLOB test-directories *)
+foreach(test-directory ${test-directories})
+    if(NOT IS_DIRECTORY ${test-directory})
+        continue()
+    endif()
+
+    set(test-name ${test-directory})
+    set(test-target test-${test-name})
+    list(APPEND test-targets ${test-target})
+
+    if(IS_DIRECTORY ${test-directory}/src)
+        file(GLOB_RECURSE test-directory-sources ${test-directory}/src/*.cpp)
+    else()
+        file(GLOB test-directory-sources ${test-directory}/*.cpp)
+    endif()
+    add_executable(${test-target} ${test-directory-sources})
+    if(IS_DIRECTORY ${test-directory}/include)
+        target_include_directories(${test-target} PRIVATE ${test-directory}/include)
+    endif()
+    target_link_libraries(${test-target} PRIVATE ring-buffer)
+endforeach()
