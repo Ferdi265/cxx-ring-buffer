@@ -3,15 +3,15 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(test-project CXX)
 
-option(RING_BUFFER_CXXFLAGS "enable default CXXFLAGS" ON)
-option(RING_BUFFER_BUILD_TESTS "build test cases for the ring buffer library" ON)
+option(RING_BUFFER_DEFAULT_CXXFLAGS "enable default CXXFLAGS" OFF)
+option(RING_BUFFER_BUILD_TESTS "build test cases for the ring buffer library" OFF)
 
 option(RING_BUFFER_FEATURE_DETECT "try to detect if c++ features are supported" ON)
 option(RING_BUFFER_NOEXCEPT "enable conditionally noexcept ring_buffer (c++11)" OFF)
 option(RING_BUFFER_CONSTEXPR "enable constexpr ring_buffer (c++14)" OFF)
 option(RING_BUFFER_CONSTEXPR_DESTRUCTORS "enable constexpr destructor for ring_buffer (c++20)" OFF)
 
-if(RING_BUFFER_CXXFLAGS)
+if(RING_BUFFER_DEFAULT_CXXFLAGS)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
     include(detect/standard.cmake)
 endif()
