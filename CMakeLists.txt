@@ -22,7 +22,6 @@ endif()
 
 add_library(ring-buffer INTERFACE)
 target_include_directories(ring-buffer INTERFACE include/)
-target_compile_features(ring-buffer INTERFACE cxx_std_11)
 
 if(RING_BUFFER_CONSTEXPR)
     target_compile_definitions(ring-buffer INTERFACE RING_BUFFER_CONSTEXPR)
