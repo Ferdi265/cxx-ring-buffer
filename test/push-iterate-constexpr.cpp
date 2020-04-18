@@ -1,6 +1,7 @@
 #include <array>
 #include <ring-buffer.h>
 
+#ifdef RING_BUFFER_CONSTEXPR
 template <typename T, size_t N>
 constexpr bool array_equal(const std::array<T, N>& a, const std::array<T, N>& b) {
     for (size_t i = 0; i < N; i++) {
@@ -11,7 +12,8 @@ constexpr bool array_equal(const std::array<T, N>& a, const std::array<T, N>& b)
 }
 
 constexpr bool test() {
-    ring_buffer<int, 4> buf;
+    std::array<int, 4> init{0, 0, 0, 0};
+    ring_buffer<int, 4> buf(init);
 
     buf.push_back(1);
     buf.push_back(2);
@@ -22,7 +24,7 @@ constexpr bool test() {
 
     {
         std::array<int, 4> expected{13, 14, 15, 16};
-        std::array<int, 4> actual;
+        std::array<int, 4> actual{0, 0, 0, 0};
         int actual_index = 0;
         for (int& i : buf) {
             i += 10;
@@ -35,7 +37,7 @@ constexpr bool test() {
 
     {
         std::array<int, 4> expected{24, 25, 26, 17};
-        std::array<int, 4> actual;
+        std::array<int, 4> actual{0, 0, 0, 0};
         int actual_index = 0;
         for (int& i : buf) {
             i += 10;
@@ -48,5 +50,6 @@ constexpr bool test() {
 }
 
 static_assert(test());
+#endif
 
 int main() {}

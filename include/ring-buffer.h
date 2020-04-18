@@ -2,6 +2,7 @@
 #define _RING_BUFFER_H
 
 #include <array>
+#include <utility>
 #include <ring-buffer-config.h>
 #include <ring-buffer-iterator.h>
 
@@ -20,6 +21,7 @@ private:
 public:
     basic_ring_buffer() = default;
     ~basic_ring_buffer() = default;
+    CONSTEXPR basic_ring_buffer(const Container& other) COND_NOEXCEPT(noexcept(Container(other))) : container(other) {}
     basic_ring_buffer(const basic_ring_buffer& other) = default;
     basic_ring_buffer(basic_ring_buffer&& other) = default;
     basic_ring_buffer& operator=(const basic_ring_buffer& other) = default;
