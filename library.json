@@ -1,0 +1,13 @@
+{
+    "name": "cxx-ring-buffer",
+    "version": "1.0.0",
+    "build": {
+        "includeDir": "include",
+        "srcFilter":
+        [
+            "+<*>",
+            "-<detect>",
+            "-<detect/*>"
+        ]
+    }
+}
