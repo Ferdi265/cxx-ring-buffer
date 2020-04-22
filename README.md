@@ -47,6 +47,15 @@ The last 3 options set preprocessor defines with the same name when enabled.
 
 ## Documentation
 
+All member functions and constructors of the following types are `constexpr` if
+the `RING_BUFFER_CONSTEXPR` feature is enabled.
+
+All member functions and constructors of the following types are `noexcept` or
+conditionally `noexcept` if the `RING_BUFFER_NOEXCEPT` feature is enabled.
+
+Destructors of the following types are explicitly marked as `constexpr` if the
+`RING_BUFFER_CONSTEXPR_DESTRUCTORS` feature is enabled.
+
 ### `class ring_buffer<T, N>`
 (defined in `<ring-buffer.h>`)
 
