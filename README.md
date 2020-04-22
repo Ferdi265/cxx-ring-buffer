@@ -66,8 +66,11 @@ the underlying container)
 #### Template parameter requirements
 
 The parameter `Container` needs to have member types `value_type` and
-`size_type`.  and methods `size()`, `begin()`, `end()`, `cbegin()`, and
-`cend()`, as well as an overloaded `operator[](size_type)`.
+`size_type`, and methods `size_type size() const`, `iterator begin()`,
+`iterator end()`, `const_iterator cbegin() const`, and `const_iterator cend()
+const`, as well as an overloaded `value_type& operator[](size_type)`.
+
+The iterators returned by the container need to be random access iterators.
 
 #### Member Types
 
