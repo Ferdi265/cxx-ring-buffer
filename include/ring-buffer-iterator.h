@@ -35,20 +35,20 @@ public:
     }
 
     CONSTEXPR ring_buffer_iterator operator+(difference_type n) const NOEXCEPT {
-      return {*container_ptr, front, index + n};
+        return {*container_ptr, front, index + n};
     }
     CONSTEXPR ring_buffer_iterator operator-(difference_type n) const NOEXCEPT {
-      return {*container_ptr, front, index - n};
+        return {*container_ptr, front, index - n};
     }
 
-    CONSTEXPR reference operator*() COND_NOEXCEPT(noexcept(container_ptr->begin()) &&noexcept(container_ptr->size())) {
-      return *(container_ptr->begin() + (front + index) % container_ptr->size());
+    CONSTEXPR reference operator*() COND_NOEXCEPT(noexcept(container_ptr->begin()) && noexcept(container_ptr->size())) {
+        return *(container_ptr->begin() + (front + index) % container_ptr->size());
     }
-    CONSTEXPR pointer operator->() COND_NOEXCEPT(noexcept(container_ptr->begin()) &&noexcept(container_ptr->size())) {
-      return &**this;
+    CONSTEXPR pointer operator->() COND_NOEXCEPT(noexcept(container_ptr->begin()) && noexcept(container_ptr->size())) {
+        return &**this;
     }
-    CONSTEXPR reference operator[](difference_type n) COND_NOEXCEPT(noexcept(container_ptr->begin()) &&noexcept(container_ptr->size())) {
-      return *(*this + n);
+    CONSTEXPR reference operator[](difference_type n) COND_NOEXCEPT(noexcept(container_ptr->begin()) && noexcept(container_ptr->size())) {
+        return *(*this + n);
     }
 
     CONSTEXPR ring_buffer_iterator& operator++() NOEXCEPT {
@@ -131,20 +131,20 @@ public:
     }
 
     CONSTEXPR ring_buffer_const_iterator operator+(difference_type n) const NOEXCEPT {
-      return {*container_ptr, front, index + n};
+        return {*container_ptr, front, index + n};
     }
     CONSTEXPR ring_buffer_const_iterator operator-(difference_type n) const NOEXCEPT {
-      return {*container_ptr, front, index - n};
+        return {*container_ptr, front, index - n};
     }
 
-    CONSTEXPR reference operator*() const COND_NOEXCEPT(noexcept(container_ptr->cbegin()) &&noexcept(container_ptr->size())) {
-      return *(container_ptr->cbegin() + (front + index) % container_ptr->size());
+    CONSTEXPR reference operator*() const COND_NOEXCEPT(noexcept(container_ptr->cbegin()) && noexcept(container_ptr->size())) {
+        return *(container_ptr->cbegin() + (front + index) % container_ptr->size());
     }
-    CONSTEXPR pointer operator->() const COND_NOEXCEPT(noexcept(container_ptr->cbegin()) &&noexcept(container_ptr->size())) {
-      return &**this;
+    CONSTEXPR pointer operator->() const COND_NOEXCEPT(noexcept(container_ptr->cbegin()) && noexcept(container_ptr->size())) {
+        return &**this;
     }
-    CONSTEXPR reference operator[](difference_type n) COND_NOEXCEPT(noexcept(container_ptr->cbegin()) &&noexcept(container_ptr->size())) {
-      return *(*this + n);
+    CONSTEXPR reference operator[](difference_type n) COND_NOEXCEPT(noexcept(container_ptr->cbegin()) && noexcept(container_ptr->size())) {
+        return *(*this + n);
     }
 
     CONSTEXPR ring_buffer_const_iterator& operator++() NOEXCEPT {
