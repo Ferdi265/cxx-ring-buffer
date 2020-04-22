@@ -38,11 +38,11 @@ The last 3 options set preprocessor defines with the same name when enabled.
 
 ## Preprocessor defines
 
-- `RING_BUFFER_NOEXCEPT` (default OFF)  
+- `RING_BUFFER_NOEXCEPT`  
   enable use of the `noexcept(bool-expr)` conditional noexcept operator (needs C++11)
-- `RING_BUFFER_CONSTEXPR` (default OFF)  
+- `RING_BUFFER_CONSTEXPR`  
   make all member functions of `basic_ring_buffer` and its iterators `constexpr` (needs C++14)
-- `RING_BUFFER_CONSTEXPR_DESTRUCTORS` (default OFF)  
+- `RING_BUFFER_CONSTEXPR_DESTRUCTORS`  
   make the destructors of `basic_ring_buffer` and its iterators explicitly `constexpr` (needs C++20)
 
 ## Documentation
