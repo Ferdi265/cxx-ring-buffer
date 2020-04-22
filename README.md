@@ -70,12 +70,15 @@ The iterators returned by `begin()`, `end()`, `begin() const`, `end() const`,
 after the logical last element. (i.e., they wrap around if they reach the end of
 the underlying container)
 
+`basic_ring_buffer` fulfills its own template parameter requirements.
+
 #### Template parameter requirements
 
 The parameter `Container` needs to have member types `value_type` and
 `size_type`, and methods `size_type size() const`, `iterator begin()`,
 `iterator end()`, `const_iterator cbegin() const`, and `const_iterator cend()
-const`, as well as an overloaded `value_type& operator[](size_type)`.
+const`, as well as an overloaded `value_type& operator[](size_type)` and `const
+value_type& operator[](size_type) const)`.
 
 The iterators returned by the container need to be random access iterators.
 

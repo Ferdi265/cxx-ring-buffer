@@ -27,6 +27,17 @@ public:
     basic_ring_buffer& operator=(const basic_ring_buffer& other) = default;
     basic_ring_buffer& operator=(basic_ring_buffer&& other) = default;
 
+    CONSTEXPR size_type size() const NOEXCEPT {
+        return container.size();
+    }
+
+    CONSTEXPR value_type& operator[](size_type size) COND_NOEXCEPT(noexcept(container[size])) {
+        return container[size];
+    }
+    CONSTEXPR const value_type& operator[](size_type size) const COND_NOEXCEPT(noexcept(container[size])) {
+        return container[size];
+    }
+
     CONSTEXPR Container& buffer() NOEXCEPT {
         return container;
     }
