@@ -1,7 +1,7 @@
 # cxx-ring-buffer
 
-a small implementation of a C++ ring-buffer container wrapper and STL-style
-iterators.
+a small header-only implementation of a C++ ring-buffer container wrapper and
+STL-style iterators.
 
 ## Overview
 
