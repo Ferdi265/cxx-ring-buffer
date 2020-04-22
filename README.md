@@ -47,7 +47,14 @@ The last 3 options set preprocessor defines with the same name when enabled.
 
 ## Documentation
 
+### `class ring_buffer<T, N>`
+(defined in `<ring-buffer.h>`)
+
+`ring_buffer` is an alias template resolving to
+`basic_ring_buffer<std::array<T, N>>`.
+
 ### `class basic_ring_buffer<Container>`
+(defined in `<ring-buffer.h>`)
 
 `basic_ring_buffer` is a template class wrapping a container, providing a
 `push_back(value)` method that treats the container as a ring buffer, and an
@@ -145,3 +152,37 @@ The iterators returned by the container need to be random access iterators.
 - `const_iterator cend() const`:  
     returns a `ring_buffer_const_iterator` to the logical one-after-last element
     of the container.
+
+### `class ring_buffer_iterator<Container>`
+(defined in `<ring-buffer-iterator.h>`)
+
+`ring_buffer_iterator` is a template class providing an iterator usable for
+iterating over a container in a ring-buffer-like fashion, i.e., start at an
+index other than 0, and wrap around when the end of the container is reached.
+
+`ring_buffer_iterator` is a random access iterator and fulfills the
+requirements of the C++ named requirement
+[LegacyRandomAccessIterator][lra-iter].
+
+#### Template parameter requirements
+
+The parameter `Container` needs to fulfill the same requirements as for
+`basic_ring_buffer`.
+
+### `class ring_buffer_const_iterator<Container>`
+(defined in `<ring-buffer-iterator.h>`)
+
+`ring_buffer_const_iterator` is a template class providing an iterator usable
+for iterating over a container in a ring-buffer-like fashion, i.e., start at an
+index other than 0, and wrap around when the end of the container is reached.
+
+`ring_buffer_const_iterator` is a random access iterator and fulfills the
+requirements of the C++ named requirement
+[LegacyRandomAccessIterator][lra-iter].
+
+#### Template parameter requirements
+
+The parameter `Container` needs to fulfill the same requirements as for
+`basic_ring_buffer`.
+
+[lra-iter]: (https://en.cppreference.com/w/cpp/named_req/RandomAccessIterator)
