@@ -185,4 +185,4 @@ requirements of the C++ named requirement
 The parameter `Container` needs to fulfill the same requirements as for
 `basic_ring_buffer`.
 
-[lra-iter]: (https://en.cppreference.com/w/cpp/named_req/RandomAccessIterator)
+[lra-iter]: https://en.cppreference.com/w/cpp/named_req/RandomAccessIterator
