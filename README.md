@@ -5,7 +5,7 @@ STL-style iterators.
 
 ## Overview
 
-This projects provides the following types:
+This project provides the following types:
 
 - the template `basic_ring_buffer<ContainerType>`, defined in `<ring-buffer.h>`  
   augments an existing container to be used as a ring buffer
