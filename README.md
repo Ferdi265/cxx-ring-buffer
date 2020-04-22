@@ -34,7 +34,8 @@ This project can be configured via CMake options or preprocessor defines
 - `RING_BUFFER_CONSTEXPR_DESTRUCTORS` (default OFF)  
   make the destructors of `basic_ring_buffer` and its iterators explicitly `constexpr` (needs C++20)
 
-The last 3 options set preprocessor defines with the same name when enabled.
+The last 3 options set preprocessor defines with the same name when enabled,
+and may be automatically enabled when `RING_BUFFER_FEATURE_DETECT` is enabled.
 
 ## Preprocessor defines
 
