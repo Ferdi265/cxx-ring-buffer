@@ -22,6 +22,7 @@ public:
     basic_ring_buffer() = default;
     ~basic_ring_buffer() = default;
     CONSTEXPR basic_ring_buffer(const Container& other) COND_NOEXCEPT(noexcept(Container(other))) : container(other) {}
+    CONSTEXPR basic_ring_buffer(Container&& other) COND_NOEXCEPT(noexcept(Container(other))) : container(other) {}
     basic_ring_buffer(const basic_ring_buffer& other) = default;
     basic_ring_buffer(basic_ring_buffer&& other) = default;
     basic_ring_buffer& operator=(const basic_ring_buffer& other) = default;

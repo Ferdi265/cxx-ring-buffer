@@ -104,6 +104,9 @@ The iterators returned by the container need to be random access iterators.
 - `basic_ring_buffer(const Container&)`:  
     copy-constructs the container and value-initializes the internal
     `front_index` variable of `size_type`.
+- `basic_ring_buffer(Container&&)`:  
+    move-constructs the container and value-initializes the internal
+    `front_index` variable of `size_type`.
 - `basic_ring_buffer(const basic_ring_buffer&)`:  
     copy-constructs a `basic_ring_buffer` from another instance with the same
     container type.
