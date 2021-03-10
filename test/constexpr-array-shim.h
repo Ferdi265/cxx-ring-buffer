@@ -5,7 +5,7 @@
 
 #if defined( __cpp_lib_array_constexpr) && __cpp_lib_array_constexpr >= 201606L
 template <typename T, size_t N>
-using constexpr_array = array;
+using constexpr_array = std::array<T, N>;
 #else
 template <typename T, size_t N>
 struct constexpr_array {
