@@ -61,7 +61,7 @@ public:
     }
     CONSTEXPR ring_buffer_iterator operator++(int) NOEXCEPT {
         ring_buffer_iterator old = *this;
-        *this++;
+        ++*this;
         return old;
     }
     CONSTEXPR ring_buffer_iterator& operator--() NOEXCEPT {
@@ -70,7 +70,7 @@ public:
     }
     CONSTEXPR ring_buffer_iterator operator--(int) NOEXCEPT {
         ring_buffer_iterator old = *this;
-        *this--;
+        --*this;
         return old;
     }
 
@@ -161,7 +161,7 @@ public:
     }
     CONSTEXPR ring_buffer_const_iterator operator++(int) NOEXCEPT {
         ring_buffer_const_iterator old = *this;
-        *this++;
+        ++*this;
         return old;
     }
     CONSTEXPR ring_buffer_const_iterator& operator--() NOEXCEPT {
@@ -170,7 +170,7 @@ public:
     }
     CONSTEXPR ring_buffer_const_iterator operator--(int) NOEXCEPT {
         ring_buffer_const_iterator old = *this;
-        *this--;
+        --*this;
         return old;
     }
 
