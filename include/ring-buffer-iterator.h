@@ -97,9 +97,9 @@ public:
     CONSTEXPR friend ring_buffer_iterator operator+(difference_type n, const ring_buffer_iterator& it) NOEXCEPT {
         return it + n;
     }
-    CONSTEXPR friend void swap(ring_buffer_iterator& a, ring_buffer_iterator& b) COND_NOEXCEPT(noexcept(std::swap(a.container, b.container))) {
+    CONSTEXPR friend void swap(ring_buffer_iterator& a, ring_buffer_iterator& b) COND_NOEXCEPT(noexcept(std::swap(a.container_ptr, b.container_ptr))) {
         using std::swap;
-        swap(a.container, b.container);
+        swap(a.container_ptr, b.container_ptr);
         swap(a.front, b.front);
         swap(a.index, b.index);
     }
@@ -197,9 +197,9 @@ public:
     CONSTEXPR friend ring_buffer_const_iterator operator+(difference_type n, const ring_buffer_const_iterator& it) NOEXCEPT {
         return it + n;
     }
-    CONSTEXPR friend void swap(ring_buffer_const_iterator& a, ring_buffer_const_iterator& b) COND_NOEXCEPT(noexcept(std::swap(a.container, b.container))) {
+    CONSTEXPR friend void swap(ring_buffer_const_iterator& a, ring_buffer_const_iterator& b) COND_NOEXCEPT(noexcept(std::swap(a.container_ptr, b.container_ptr))) {
         using std::swap;
-        swap(a.container, b.container);
+        swap(a.container_ptr, b.container_ptr);
         swap(a.front, b.front);
         swap(a.index, b.index);
     }
