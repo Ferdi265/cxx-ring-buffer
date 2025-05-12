@@ -41,7 +41,8 @@ jobs:
 
       - name: Run tests
         run: |
-          find build/test -type f -executable -name 'test-*' -exec sh -c 'echo "Running test: $1"; $1' _ {} \;
+          # search for all executables in build/test/test-* and run them
+          find build/test/ -type f -executable -name 'test-*' | (fail=0; while read test; do echo "Running test: $test"; "$test" || fail=$((fail+1)); done; exit $fail)
   build-and-test-c99-unix:
     strategy:
       matrix:
@@ -72,5 +73,5 @@ jobs:
 
       - name: Run tests
         run: |
-          # search for all executables in build/test/test-*
-          find build/test -type f -executable -name 'test-*' -exec sh -c 'echo "Running test: $1"; $1' _ {} \;
+          # search for all executables in build/test/test-* and run them
+          find build/test/ -type f -executable -name 'test-*' | (fail=0; while read test; do echo "Running test: $test"; "$test" || fail=$((fail+1)); done; exit $fail)
