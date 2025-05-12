@@ -6,6 +6,14 @@
 #include <ring-buffer-config.h>
 #include <ring-buffer-iterator.h>
 
+namespace detail {
+    using std::swap;
+    template <typename T>
+    CONSTEXPR void adl_swap(T& a, T&b ) COND_NOEXCEPT(noexcept(swap(a, b))) {
+        swap(a, b);
+    }
+}
+
 template <typename Container>
 class basic_ring_buffer {
 public:
@@ -70,6 +78,11 @@ public:
     }
     CONSTEXPR const_iterator cend() const COND_NOEXCEPT(noexcept(container.size())) {
         return {container, front_index, container.size()};
+    }
+    CONSTEXPR friend void swap(basic_ring_buffer& a, basic_ring_buffer& b) COND_NOEXCEPT(noexcept(detail::adl_swap(a.container, b.container))) {
+        using std::swap;
+        swap(a.container, b.container);
+        swap(a.front_index, b.front_index);
     }
 };
 
