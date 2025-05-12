@@ -1,6 +1,7 @@
 #ifndef _CONSTEXPR_ARRAY_SHIM_H
 #define _CONSTEXPR_ARRAY_SHIM_H
 
+#include <cstddef>
 #include <array>
 
 #if defined( __cpp_lib_array_constexpr) && __cpp_lib_array_constexpr >= 201606L
